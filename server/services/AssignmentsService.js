@@ -4,10 +4,10 @@ import { BadRequest } from "../utils/Errors";
 
 class AssignmentsService {
   async find(query = {}) {
-    return await dbContext.Assignments.find(query)
+    return await dbContext.Assignments.find(query).populate('classroom')
   }
   async findById(id) {
-    let assignment = await dbContext.Assignments.findById(id)
+    let assignment = await dbContext.Assignments.findById(id).populate('classroom')
     if (!assignment) {
       throw new BadRequest("invalid id")
     }

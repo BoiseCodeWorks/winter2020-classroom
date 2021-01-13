@@ -9,7 +9,8 @@ export class ClassroomsController extends BaseController {
     this.router
       .get("", this.getAll)
       .get("/:id", this.getById)
-      .get("/:id/assignments", this.getAssigments)
+      .get("/:id/assignments", this.getAssigments) // api/classrooms/2l3rkj23l4/assignments
+      .get("/:id/:subjects", this.getAssigments) // api/classrooms/2l3rkj23l4/subjects
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)

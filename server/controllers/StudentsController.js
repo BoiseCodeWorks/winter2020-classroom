@@ -1,3 +1,4 @@
+import { studentClassroomsService } from "../services/StudentClassroomsService";
 import { studentsService } from "../services/StudentsService";
 import { submissionsService } from "../services/SubmissionsService";
 import BaseController from "../utils/BaseController";
@@ -10,6 +11,7 @@ export class StudentsController extends BaseController {
       .get("", this.getAll)
       .get("/:id", this.getById) // any parameters identified with a ':' are added to req.params
       .get("/:id/submissions", this.getSubmissions)
+      .get("/:id/classrooms", this.getClassrooms)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
@@ -41,6 +43,15 @@ export class StudentsController extends BaseController {
       // what collection is being returned..... assignments
       // find me all the assignments where the 'classroom' property has a value of 'id'
       let data = await submissionsService.find({ classroom: req.params.id })
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getClassrooms(req, res, next) {
+    try {
+      let data = await studentClassroomsService.getClassroomByStudent({ student: req.params.id })
       res.send(data)
     } catch (error) {
       next(error)
